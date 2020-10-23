@@ -3,15 +3,19 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     name:{
         type:String,
-        required:true
+        require:true
     },
     email:{
         type:String,
-        required:true
+        require:true
     },
     password:{
         type:String,
-        required:true
+        require:true
     },
-})
+    timestamp:{
+        type:Date,
+        default:Date.now()
+    },
+}) 
 module.exports = mongoose.model('User' , userSchema);

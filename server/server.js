@@ -1,25 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const {DB_URL} = require('./config/database');
-const PORT = process.env.PORT || 5000;
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const PORT = process.env.PORT || 7000;
+const { DB_URL } = require("./config/database");
+const auth = require("./routes/auth");
+const posts = require("./routes/post");
 const app = express();
 
-// @Mongodb Connection
+// @Database connection
 mongoose
-.connect(DB_URL , { useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => console.log('Mongodb is connected successfuly'))
-.catch(err => console.log(err));
+  .connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("mongodb connected successfuly"))
+  .catch((err) => console.log(err));
 
-// @APP use
+// @app uses
 app.use(bodyParser.json());
-
-// @Authentification
-app.use(require('./routes/auth'));
-
-// @Post Model
-require('./models/Post');
-app.use(require('./routes/post'));
-
-// @server run on
-app.listen(PORT , () => console.log(`Server running on port ${PORT}`));
+app.use(auth);
+app.use(posts);
+// @server running on
+app.listen(PORT, () => console.log(`server running on port ${PORT}`));
