@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     : (token = authorization.replace("Bearer ", ""));
   jwt.verify(token, SECRET, (err, payload) => {
     if (err) {
-      res.status(422).json(err);
+      res.status(404).json(err);
     } else {
       const { _id } = payload;
       User.findOne({ _id: _id }).then((user) => {

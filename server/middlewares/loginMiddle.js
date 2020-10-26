@@ -14,7 +14,8 @@ module.exports = (req, res, next) => {
                 res.status(402).json({ err: "password is incorrect" });
               } else {
                 const token = jwt.sign({ _id: user._id }, SECRET);
-                res.status(200).json({ token });
+                const { _id, name, email } = user;
+                res.status(200).json({ user: { _id, name, email, token } });
                 next();
               }
             });

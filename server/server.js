@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+// const cors = require("cors");
 const PORT = process.env.PORT || 7000;
 const { DB_URL } = require("./config/database");
 const auth = require("./routes/auth");
@@ -15,6 +16,7 @@ mongoose
 
 // @app uses
 app.use(bodyParser.json());
+// app.use(cors);
 app.use(auth);
 app.use(posts);
 // @server running on
